@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/tab-icon.png">
+    <title>Casaluxe</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+
+    <div id="header"></div>
+    <section class="add-product container my-5" data-aos="fade-up">
+        <h2 class="text-center mb-4">Add New Product</h2>
+        <form id="productForm" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="productImage" class="form-label" style="font-size: 20px;">Product Image :</label>
+                <input type="file" class="form-control" id="productImage" accept="image/*" required>
+            </div>
+            <div class="mb-3">
+                <label for="productName" class="form-label" style="font-size: 20px;">Product Name : </label>
+                <input type="text" class="form-control" id="productName" required>
+            </div>
+            <div class="mb-3">
+                <label for="productDesc" class="form-label" style="font-size: 20px;">Product Description :</label>
+                <textarea class="form-control" id="productDesc" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="productNewPrice" class="form-label" style="font-size: 20px;">New Price ($) :</label>
+                <input type="number" class="form-control" id="productNewPrice" required>
+            </div>
+            <div class="mb-3">
+                <label for="productOldPrice" class="form-label" style="font-size: 20px;">Old Price ($) :</label>
+                <input type="number" class="form-control" id="productOldPrice" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Product</button>
+        </form>
+    </section>
+
+         <div id="footer"></div>
+
+
+    <script>
+        document.getElementById("productForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById("productName").value;
+            const desc = document.getElementById("productDesc").value;
+            const newPrice = document.getElementById("productNewPrice").value;
+            const oldPrice = document.getElementById("productOldPrice").value;
+            const imageInput = document.getElementById("productImage");
+
+            if (imageInput.files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const product = {
+                        name: name,
+                        desc: desc,
+                        newPrice: newPrice,
+                        oldPrice: oldPrice,
+                        image: e.target.result 
+                    };
+
+                    
+                    let products = JSON.parse(localStorage.getItem("products")) || [];
+                    products.push(product);
+                    localStorage.setItem("products", JSON.stringify(products));
+
+                    alert(" Product Added Successfully ");
+                    document.getElementById("productForm").reset();
+                }
+                reader.readAsDataURL(imageInput.files[0]);
+            }
+        });
+    </script>
+
+   
+
+    <script>
+
+        fetch("header.html")
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("header").innerHTML = data;
+
+
+                const toggle = document.querySelector(".theme-switch__checkbox");
+
+                if (toggle) {
+                    if (localStorage.getItem("theme") === "dark") {
+                        document.body.classList.add("dark-mode");
+                        toggle.checked = true;
+                    }
+
+                    toggle.addEventListener("change", function () {
+                        if (this.checked) {
+                            document.body.classList.add("dark-mode");
+                            localStorage.setItem("theme", "dark");
+                        } else {
+                            document.body.classList.remove("dark-mode");
+                            localStorage.setItem("theme", "light");
+                        }
+                    });
+                }
+            })
+            .catch(err => console.error("Header load error:", err));
+
+
+        fetch("footer.html")
+            .then(res => res.text())
+            .then(data => document.getElementById("footer").innerHTML = data)
+            .catch(err => console.error("Footer load error:", err));
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.querySelector(".theme-switch__checkbox");
+
+
+            if (localStorage.getItem("theme") === "dark") {
+                document.body.classList.add("dark-mode");
+                toggle.checked = true;
+            }
+
+
+            toggle.addEventListener("change", function () {
+                if (this.checked) {
+                    document.body.classList.add("dark-mode");
+                    localStorage.setItem("theme", "dark");
+                } else {
+                    document.body.classList.remove("dark-mode");
+                    localStorage.setItem("theme", "light");
+                }
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="java-script/bootstrap.bundle.min.js"></script>
+    <script src="java-script/bootstrap.min.js"></script>
+    <script src="java-script/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

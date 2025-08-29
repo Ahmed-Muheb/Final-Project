@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Casaluxe</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+  <div id="header"></div>
+  <h1>Welcome to Casaluxe</h1>
+  <div id="footer"></div>
+  <script>
+    fetch("header.html").then(r => r.text()).then(d => document.getElementById("header").innerHTML = d);
+    fetch("footer.html").then(r => r.text()).then(d => document.getElementById("footer").innerHTML = d);
+  </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/tab-icon.png">
+    <title>Casaluxe</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+
+
+</head>
+
+<body style="background-color: #dee1dc  ;">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+
+    <section class="signup" data-aos="fade-up">
+        <div class="container ">
+            <div class="row  rounded" style="background-color: white;  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);">
+                <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card-right border border-1 border-dark rounded-4 my-5 p-4"
+                        style="box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);">
+                        <h3>Welcome To Casaluxe,</h3>
+                        <h4 class="mb-3">Sign up </h4>
+                        <input class="p-2 w-100 mb-2 ps-4" id="fullname" type="text" name="text"
+                            placeholder="Your Full Name">
+                        <input class="p-2 w-100 mb-2 ps-4" id="email" type="email" name="email"
+                            placeholder="Email or Username">
+                        <input class="p-2 w-100 mb-2 ps-4" id="password" type="password" name="password"
+                            placeholder="Password">
+                        <div class="text-center mb-2">
+                            <label for=""><strong>Gender</strong></label>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center gap-4 mb-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="male" value="Male"
+                                    checked>
+                                <label class="form-check-label" for="male">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="female" value="Female">
+                                <label class="form-check-label" for="female">
+                                    Female
+                                </label>
+                            </div>
+                        </div>
+                        <button type="button" id="signupBtn" class="btn w-100 rounded-pill text-light mb-3"
+                            style="background-color: #a08f7f ;">Sign Up Now</button>
+
+                        <p class="text-center">or Sign up With</p>
+                        <div class="d-flex justify-content-center align-items-center gap-3 ">
+                            <div onclick="window.location.href='https://accounts.google.com/signin'"
+                                class="btn border border-1 rounded-pill px-5" style="border-color: #ccc;">
+                                <i class="fa-brands fa-google me-2 google-icon"></i>Google
+                            </div>
+
+                            <div onclick="window.location.href='https://www.facebook.com/login'"
+                                class="btn border border-1 rounded-pill px-5" style="border-color: #ccc;">
+                                <i class="fa-brands fa-facebook fa-lg me-2" style="color: #004275;"></i>Facebook
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <img src="images/signup.png" class="w-100 mt-5" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById("signupBtn").addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const fullname = document.getElementById("fullname").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const gender = document.querySelector('input[name="gender"]:checked')?.value;
+
+            if (email === "" || password === "") {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Email and Password are required!",
+                });
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+
+            const exists = users.some(user => user.email === email);
+            if (exists) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Email already exists",
+                    text: "Try logging in instead.",
+                });
+                return;
+            }
+
+            users.push({ fullname, email, password, gender });
+            localStorage.setItem("users", JSON.stringify(users));
+
+            Swal.fire({
+                icon: "success",
+                title: "Signed Up!",
+                text: "Your account has been created successfully.",
+                timer: 2000,
+                showConfirmButton: false,
+            }).then(() => {
+                window.location.href = "login.html";
+            });
+        });
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="java-script/bootstrap.bundle.min.js"></script>
+    <script src="java-script/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="java-script/main.js"></script>
+
+</body>
+
+
+</html>
