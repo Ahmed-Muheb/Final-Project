@@ -625,6 +625,12 @@ section.one-home .position-absolute {
   background-color: black;
 }
 
+@media (max-width: 991.98px) {
+  .features .container .feet:not(:last-child)::after {
+    display: none;
+  }
+}
+
 .features .container .feet i {
   animation: icons 1s ease infinite;
 }
@@ -905,7 +911,7 @@ section.one-home .position-absolute {
   border-left: 80px solid #a08f7f;
   border-bottom: 80px solid #a08f7f;
   top: -40px;
-  right: -100px;
+  right: 100px;
   z-index: -1;
   transition: 0.8s ease-out;
 }
@@ -921,7 +927,7 @@ section.one-home .position-absolute {
 
 .about .container .about-content .img:hover:after {
 
-  right: -40px;
+  right: 150px;
 }
 
 .contact {
